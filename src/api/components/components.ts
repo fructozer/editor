@@ -1403,15 +1403,15 @@ class ValueCondition extends ProCondition {
 class ValueTextCondition extends ProCondition {
 	public constructor() {
 		super({
-			name:        'text',
+			name:        'Value Text',
 			description: 'Applies child components if text value match to the settings',
 			data:        [
 				new DropdownSelect('Mode', 'mode', ['REGEX','EXACTLY','CONTAIN','START','END'], 'EXACTLY')
-					.setTooltip('The unique string used for the value set by the Value mechanics'),
+					.setTooltip('The comparison mode should be conditioned.'),
 				new StringSelect('Key', 'value', "")
-					.setTooltip('Key of the value to be compared'),
+					.setTooltip('Key of the value to be compared.'),
 				new StringSelect('Expect', 'expect', "")
-					.setTooltip('Strings used for comparison')
+					.setTooltip('Strings used for comparison.')
 			]
 		});
 	}
@@ -3555,7 +3555,7 @@ export const initComponents = () => {
 		TIME:           { name: 'Time', component: TimeCondition },
 		TOOL:           { name: 'Tool', component: ToolCondition },
 		VALUE:          { name: 'Value', component: ValueCondition },
-		TEXT:           { name: 'Value Text', component: ValueTextCondition },
+		VALUETEXT:      { name: 'Value Text', component: ValueTextCondition },
 		WATER:          { name: 'Water', component: WaterCondition },
 		WEATHER:        { name: 'Weather', component: WeatherCondition },
 		WORLD:          { name: 'World', component: WorldCondition }
