@@ -570,6 +570,23 @@ class ShieldTrigger extends ProTrigger {
 
 	public static override new = () => new this();
 }
+class SignalTrigger extends ProTrigger {
+	public constructor() {
+		super({
+			name:         'Signal',
+			description:  'Applies skill effects when the player receive a signal emitted from Signal Emit mechanic.',
+			data:         [
+				new BooleanSelect('Target Receiver', 'target', true)
+					.setTooltip('True makes children target the receiver. False makes children target the emitter'),
+				new StringSelect('Signal', 'signal')
+					.setTooltip('Name of signal want to receive.')
+			],
+			summaryItems: ['target', 'signal']
+		});
+	}
+
+	public static override new = () => new this();
+}
 
 // TARGETS
 
@@ -3028,6 +3045,25 @@ class RepeatMechanic extends ProMechanic {
 
 	public static override new = () => new this();
 }
+class SignalEmitMechanic extends ProMechanic {
+	public constructor() {
+		super({
+			name:         'Signal Emit',
+			description:  'Send a custom signal to all target that can be reused and processed separately.',
+			data:         [
+				new StringSelect('Signal', 'signal')
+					.setTooltip('The name of signal will be emit.'),
+				new BooleanSelect('Self-handling', 'handler', false)
+					.setTooltip('\nIf true, the signal will be sent to the caster itself and the target are the current targets.\n If false, a signal is sent to each target and the target is caster'),
+				new StringListSelect('Arguments', 'argument')
+					.setTooltip('Arguments used for signal processing. One value per line. The value will be stored in value api-arg[<index>]. The first value will be specially stored at api-arg')
+			],
+			summaryItems: ['signal', 'handler', 'argument']
+		}, true);
+	}
+
+	public static override new = () => new this();
+}
 
 class SkillCastMechanic extends ProMechanic {
 	public constructor() {
@@ -3670,6 +3706,7 @@ export const initComponents = () => {
 		PROJ_HIT:       { name: 'Projectile Hit', component: ProjectileHitTrigger },
 		PROJ_TICK:      { name: 'Projectile Launch', component: ProjectileTickTrigger },
 		SHIELD:         { name: 'Shield', component: ShieldTrigger },
+		SIGNAL:         { name: 'Signal', component: SignalTrigger },
 		SKILL_DAMAGE:   { name: 'Skill Damage', component: SkillDamageTrigger },
 		SKILL_CAST:     { name: 'Skill Cast', component: SkillCastTrigger },
 		TOOK_PHYS:      { name: 'Took Physical Damage', component: TookPhysicalTrigger },
@@ -3787,6 +3824,7 @@ export const initComponents = () => {
 		PUSH:                { name: 'Push', component: PushMechanic },
 		REMEMBER_TARGETS:    { name: 'Remember Targets', component: RememberTargetsMechanic },
 		REPEAT:              { name: 'Repeat', component: RepeatMechanic },
+		SIGNAL_EMIT:         { name: 'Signal Emit', component: SignalEmitMechanic },
 		SKILL_CAST:          { name: 'Skill Cast', component: SkillCastMechanic },
 		SOUND:               { name: 'Sound', component: SoundMechanic },
 		STAT:                { name: 'Stat', component: StatMechanic },
