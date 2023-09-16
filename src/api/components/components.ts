@@ -1400,6 +1400,24 @@ class ValueCondition extends ProCondition {
 
 	public static override new = () => new this();
 }
+class ValueTextCondition extends ProCondition {
+	public constructor() {
+		super({
+			name:        'text',
+			description: 'Applies child components if text value match to the settings',
+			data:        [
+				new DropdownSelect('Mode', 'mode', ['REGEX','EXACTLY','CONTAIN','START','END'], 'EXACTLY')
+					.setTooltip('The unique string used for the value set by the Value mechanics'),
+				new StringSelect('Key', 'value', "")
+					.setTooltip('Key of the value to be compared'),
+				new StringSelect('Expect', 'expect', "")
+					.setTooltip('Strings used for comparison')
+			]
+		});
+	}
+
+	public static override new = () => new this();
+}
 
 class WaterCondition extends ProCondition {
 	public constructor() {
@@ -3537,6 +3555,7 @@ export const initComponents = () => {
 		TIME:           { name: 'Time', component: TimeCondition },
 		TOOL:           { name: 'Tool', component: ToolCondition },
 		VALUE:          { name: 'Value', component: ValueCondition },
+		TEXT:           { name: 'Value Text', component: ValueTextCondition },
 		WATER:          { name: 'Water', component: WaterCondition },
 		WEATHER:        { name: 'Weather', component: WeatherCondition },
 		WORLD:          { name: 'World', component: WorldCondition }
